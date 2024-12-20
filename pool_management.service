@@ -1,0 +1,13 @@
+[Unit]
+Description=Pool Management System
+After=network.target
+
+[Service]
+User=poolapp
+Group=poolapp
+WorkingDirectory=/opt/pool_management
+Environment="PATH=/opt/pool_management/venv/bin"
+ExecStart=/opt/pool_management/venv/bin/python wsgi.py
+
+[Install]
+WantedBy=multi-user.target
