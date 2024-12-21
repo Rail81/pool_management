@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Управление абонементами</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Текущий баланс</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for client in clients %}
+            <tr>
+                <td>{{ client.name }}</td>
+                <td>{{ client.subscription_balance }} посещений</td>
+                <td>
+                    <form action="{{ url_for('manage_subscription') }}" method="POST" class="d-inline">
+                        <input type="hidden" name="client_id" value="{{ client.id }}">
+                        <input type="hidden" name="action" value="add">
+                        <input type="number" name="amount" min="1" max="50" placeholder="Кол-во" required>
+                        <button type="submit" class="btn btn-success btn-sm">Начислить</button>
+                    </form>
+                    <form action="{{ url_for('manage_subscription') }}" method="POST" class="d-inline">
+                        <input type="hidden" name="client_id" value="{{ client.id }}">
+                        <input type="hidden" name="action" value="subtract">
+                        <input type="number" name="amount" min="1" max="{{ client.subscription_balance }}" placeholder="Кол-во" required>
+                        <button type="submit" class="btn btn-danger btn-sm">Списать</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

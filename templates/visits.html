@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>История посещений</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Клиент</th>
+            <th>Дата и время</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for visit in visits %}
+        <tr>
+            <td>{{ visit.client.name }}</td>
+            <td>{{ visit.visit_date.strftime('%d.%m.%Y %H:%M') }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
